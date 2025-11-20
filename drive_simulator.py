@@ -5,6 +5,7 @@ import contextily as ctx
 import networkx as nx
 import matplotlib.pyplot as plt
 import contextily as ctx
+import time
 
 def load_serbian_roads():
     # Učitaj mrežu puteva Srbije
@@ -151,7 +152,12 @@ class DriveSimulator:
         self.ax.set_title(title)
         
         plt.draw()
-        plt.pause(plot_pause)
+
+        #plt.pause(plot_pause)
+        # da se prozor ne bi stalno refreshovao i stavljao ispred ostalih:
+        self.fig.canvas.draw_idle()
+        self.fig.canvas.flush_events()
+        time.sleep(plot_pause)
 
     def finish_drive(self):
         plt.ioff()
